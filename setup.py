@@ -32,6 +32,10 @@ class PyTest(TestCommand):
 tests_require = read_requirements('test.txt')
 version = read_version()
 install_requires = [
+    'cloudfunc=={}'.format(version),
+    'inquirer>=2.7.0',
+    'Jinja2>=2.11.2',
+    'python-dotenv>=0.14.0',
     'requests>=2.24.0',
 ]
 
@@ -53,7 +57,7 @@ def main():
         packages=find_packages(exclude=("tests",)),
         include_package_data=True,
         entry_points={
-            "console_scripts": ["cloudfunc = dloudfunc_cli.main:main"]
+            "console_scripts": ["cloudfunc = cloudfunc_cli.main:main"]
         },
         python_requires='>=3.6',
         install_requires=install_requires,
