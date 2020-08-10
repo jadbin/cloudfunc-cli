@@ -37,6 +37,8 @@ install_requires = [
     'Jinja2>=2.11.2',
     'python-dotenv>=0.14.0',
     'requests>=2.24.0',
+    'requests-toolbelt>=0.9.1',
+    'tqdm>=4.48.2',
 ]
 
 
