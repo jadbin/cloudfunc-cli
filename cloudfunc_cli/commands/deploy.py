@@ -38,12 +38,12 @@ class Deploy(Command):
             profile_env_file = join(project_dir, '.cloudfunc.env.{}'.format(profile))
             load_dotenv(profile_env_file)
         pkg = create_package(project_dir)
-        upload_url = 'http://{}/manage/upload'.format(os.environ['CLOUDFUNC_SERVE_ADDRESS'])
+        upload_url = 'http://{}/repo/upload'.format(os.environ['CLOUDFUNC_SERVE_ADDRESS'])
         uploader = Uploader(upload_url)
         resp = uploader.upload(pkg)
         try:
             resp.raise_for_status()
-        except HTTPError as e:
-            print('Failed:', e)
+        except HTTPError:
+            print('Failed:', resp.text)
         else:
             print('Success')
