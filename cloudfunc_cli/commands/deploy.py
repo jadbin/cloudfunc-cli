@@ -22,11 +22,11 @@ class Deploy(Command):
 
     @property
     def short_desc(self):
-        return 'Deploy application'
+        return 'Deploy the project'
 
     def add_arguments(self, parser):
         parser.add_argument(dest='profile', nargs='?', metavar='PROFILE',
-                            help='active profile to develop this application')
+                            help='active profile')
 
     def run(self, args):
         project_dir = abspath('')

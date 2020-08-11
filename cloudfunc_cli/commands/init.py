@@ -50,7 +50,7 @@ class InitCommand(Command):
                           message='What is the name of your application? ({})'.format(default_project_name),
                           validate=project_name_validation)
         ]
-        answers = inquirer.prompt(q, theme=GreenPassion())
+        answers = inquirer.prompt(q, theme=GreenPassion(), raise_keyboard_interrupt=True)
         settings['project_name'] = answers['project_name'] or default_project_name
         return settings
 
