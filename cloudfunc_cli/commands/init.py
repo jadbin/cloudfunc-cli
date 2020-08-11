@@ -9,7 +9,7 @@ import inquirer
 from inquirer.themes import GreenPassion
 from inquirer.errors import ValidationError
 
-from cloudfunc_cli.errors import AbortedError, TemplateError
+from cloudfunc_cli.errors import TemplateError
 from cloudfunc_cli.config import _template_folder
 from cloudfunc_cli.utils import string_lowercase_underscore
 from .base import Command
@@ -37,7 +37,7 @@ class InitCommand(Command):
         try:
             settings = self.get_settings_by_steps(project_dir)
             self.copy_files(project_dir, settings)
-        except (KeyboardInterrupt, AbortedError):
+        except KeyboardInterrupt:
             print(flush=True)
             self.exitcode = 1
 

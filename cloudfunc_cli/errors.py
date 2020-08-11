@@ -10,12 +10,6 @@ class UsageError(Exception):
         super().__init__(*args, **kwargs)
 
 
-class AbortedError(Exception):
-    """
-    Aborted error
-    """
-
-
 class TemplateError(Exception):
     """
     Template error
