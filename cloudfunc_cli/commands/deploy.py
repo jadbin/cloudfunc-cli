@@ -4,7 +4,7 @@ import os
 from os.path import abspath, isfile, join
 
 from dotenv import load_dotenv
-from requests import HTTPError
+import requests
 
 from cloudfunc_cli.package import create_package
 from cloudfunc_cli.uploader import Uploader
@@ -43,7 +43,7 @@ class Deploy(Command):
         resp = uploader.upload(pkg)
         try:
             resp.raise_for_status()
-        except HTTPError:
+        except requests.HTTPError:
             print('Failed:', resp.text)
         else:
             print('Success')
