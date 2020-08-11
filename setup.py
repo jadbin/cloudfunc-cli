@@ -39,6 +39,7 @@ install_requires = [
     'requests>=2.24.0',
     'requests-toolbelt>=0.9.1',
     'tqdm>=4.48.2',
+    'pytest>=6.0.1'
 ]
 
 

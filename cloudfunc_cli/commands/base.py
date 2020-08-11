@@ -1,6 +1,8 @@
 # coding=utf-8
 
-__all__ = ['Command']
+from os.path import join, isfile
+
+from dotenv import load_dotenv
 
 
 class Command:
@@ -31,3 +33,12 @@ class Command:
 
     def run(self, args):
         raise NotImplementedError
+
+
+def load_env(project_dir: str, profile: str = None):
+    default_env_file = join(project_dir, '.cloudfunc.env')
+    if isfile(default_env_file):
+        load_dotenv(default_env_file)
+    if profile:
+        profile_env_file = join(project_dir, '.cloudfunc.env.{}'.format(profile))
+        load_dotenv(profile_env_file)

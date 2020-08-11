@@ -3,13 +3,12 @@
 import os
 from os.path import abspath, isfile, join, relpath, isdir
 
-from dotenv import load_dotenv
 import requests
 import inquirer
 from inquirer.themes import GreenPassion
 
 from cloudfunc_cli.origin_lib import LibFetcher, write_lib_definitions_to_file
-from .base import Command
+from .base import Command, load_env
 
 
 class Fetch(Command):
@@ -31,13 +30,7 @@ class Fetch(Command):
 
     def run(self, args):
         project_dir = abspath('')
-        profile = args.profile
-        default_env_file = join(project_dir, '.cloudfunc.env')
-        if isfile(default_env_file):
-            load_dotenv(default_env_file)
-        if profile:
-            profile_env_file = join(project_dir, '.cloudfunc.env.{}'.format(profile))
-            load_dotenv(profile_env_file)
+        load_env(project_dir, profile=args.profile)
 
         lib_file = join(project_dir, '.cloudfunc.libs')
         if not isfile(lib_file):
