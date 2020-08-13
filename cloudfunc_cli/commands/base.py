@@ -35,10 +35,10 @@ class Command:
         raise NotImplementedError
 
 
-def load_env(project_dir: str, profile: str = None):
+def load_env(project_dir: str, env: str = None):
     default_env_file = join(project_dir, '.cloudfunc.env')
     if isfile(default_env_file):
         load_dotenv(default_env_file)
-    if profile:
-        profile_env_file = join(project_dir, '.cloudfunc.env.{}'.format(profile))
-        load_dotenv(profile_env_file)
+    if env:
+        env_file = join(project_dir, '.cloudfunc.env.{}'.format(env))
+        load_dotenv(env_file)

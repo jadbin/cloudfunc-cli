@@ -14,7 +14,7 @@ from .base import Command, load_env
 class Fetch(Command):
     @property
     def syntax(self):
-        return '[PROFILE]'
+        return '[ENV]'
 
     @property
     def name(self):
@@ -25,12 +25,14 @@ class Fetch(Command):
         return 'Fetch the project dependencies'
 
     def add_arguments(self, parser):
-        parser.add_argument(dest='profile', nargs='?', metavar='PROFILE',
-                            help='active profile')
+        parser.add_argument(dest='env', nargs='?', metavar='ENV',
+                            help='specific cloudfunc env')
 
     def run(self, args):
         project_dir = abspath('')
-        load_env(project_dir, profile=args.profile)
+        if args.env:
+            os.environ['CLOUDFUNC_ENV'] = args.env
+        load_env(project_dir, env=os.environ.get('CLOUDFUNC_ENV'))
 
         lib_file = join(project_dir, '.cloudfunc.libs')
         if not isfile(lib_file):

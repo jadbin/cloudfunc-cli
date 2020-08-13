@@ -12,7 +12,7 @@ from .base import Command, load_env
 class Test(Command):
     @property
     def syntax(self):
-        return '[PROFILE]'
+        return '[ENV]'
 
     @property
     def name(self):
@@ -23,13 +23,14 @@ class Test(Command):
         return 'Run pytest for this project'
 
     def add_arguments(self, parser):
-        parser.add_argument(dest='profile', nargs='?', metavar='PROFILE',
-                            help='active profile')
+        parser.add_argument(dest='env', nargs='?', metavar='ENV',
+                            help='specific cloudfunc env')
 
     def run(self, args):
         project_dir = abspath('')
-        load_env(project_dir, profile=args.profile)
-        os.environ['CLOUDFUNC_DEBUG'] = '1'
+        if args.env:
+            os.environ['CLOUDFUNC_ENV'] = args.env
+        load_env(project_dir, env=os.environ.get('CLOUDFUNC_ENV'))
 
         errno = pytest.main(['tests'])
         sys.exit(errno)

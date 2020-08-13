@@ -13,7 +13,7 @@ from .base import Command, load_env
 class Deploy(Command):
     @property
     def syntax(self):
-        return '[PROFILE]'
+        return '[ENV]'
 
     @property
     def name(self):
@@ -24,12 +24,14 @@ class Deploy(Command):
         return 'Deploy the project'
 
     def add_arguments(self, parser):
-        parser.add_argument(dest='profile', nargs='?', metavar='PROFILE',
-                            help='active profile')
+        parser.add_argument(dest='env', nargs='?', metavar='ENV',
+                            help='specific cloudfunc env')
 
     def run(self, args):
         project_dir = abspath('')
-        load_env(project_dir, profile=args.profile)
+        if args.env:
+            os.environ['CLOUDFUNC_ENV'] = args.env
+        load_env(project_dir, env=os.environ.get('CLOUDFUNC_ENV'))
 
         pkg = create_package(project_dir)
         upload_url = 'http://{}/repo/upload'.format(os.environ['CLOUDFUNC_SERVE_ADDRESS'])
